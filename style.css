@@ -1,0 +1,310 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+  color: #000;
+  line-height: 1.7;
+  background: #eceba3;
+}
+
+img {
+  width: 100%;
+}
+
+.contact {
+  margin: 5%;
+  background: #fff;
+}
+
+.contact-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.contact-form > * {
+  width: 100%;
+}
+
+.contact-form-fields {
+  padding: 5rem;
+}
+
+.contact-form-fields > * {
+  padding: 0.5rem 0;
+}
+
+.contact-form-fields h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.firstname-grid {
+  grid-area: firstname;
+  margin-right: 1.5rem;
+}
+
+.lastname-grid {
+  grid-area: lastname;
+}
+
+.email-grid {
+  grid-area: email;
+}
+
+.company-grid {
+  grid-area: company;
+}
+
+.phone-grid {
+  grid-area: phone;
+}
+
+.message-grid {
+  grid-area: message;
+}
+
+.budget-grid {
+  grid-area: budget;
+}
+
+.others-grid {
+  grid-area: others;
+}
+
+.button-grid {
+  grid-area: button;
+}
+
+.form {
+  display: grid;
+  grid-template-areas:
+    'firstname lastname'
+    'email email'
+    'company company'
+    'phone phone'
+    'message message'
+    'budget budget'
+    'others others'
+    'button button';
+}
+
+.form > * {
+  display: flex;
+  flex-direction: column;
+  padding: 0.8rem 0;
+}
+
+.form > * input,
+.form > * textarea {
+  padding: 1rem;
+}
+
+.form > * textarea {
+  height: 10rem;
+}
+
+.form > * input,
+.form > * textarea {
+  border: 1px solid #333;
+  border-radius: 0.2rem;
+  outline: none;
+}
+
+.form > * input:focus,
+.form > * textarea:focus {
+  border: 1.5px solid #000;
+}
+
+.budget-grid > * input {
+  margin-right: 1rem;
+}
+
+.phone-grid label,
+.message-grid label {
+  position: relative;
+}
+
+.phone-grid label::after {
+  content: 'Optional';
+  position: absolute;
+  right: 0;
+  color: #6e6d6d;
+}
+
+.message-grid label::after {
+  content: 'Max. 500 characters';
+  position: absolute;
+  right: 0;
+  color: #6e6d6d;
+}
+
+.form > *:last-child {
+  margin-top: 1.2rem;
+}
+
+.form > *:last-child button {
+  padding: 1rem 2rem;
+  width: 30%;
+  align-self: flex-end;
+  text-align: center;
+  border: 1px solid #333;
+  border-radius: 0.2rem;
+  outline: none;
+  background: #333;
+  color: #fff;
+}
+
+.form > *:last-child button:hover {
+  color: #333;
+  background: #fff;
+}
+
+.contact-form-img-mobile {
+  display: none;
+}
+
+.contact-form-img-desktop {
+  height: 100%;
+}
+
+.contact-form-img-desktop img {
+  height: 100%;
+}
+
+.error {
+  background-color: #f0b6b6;
+  text-align: center;
+  margin-top: 1rem;
+  border-radius: 0.2rem;
+}
+
+/* Redirected page */
+#redirected-page {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.redirected-message {
+  height: 50%;
+  background: #fff;
+  width: 60%;
+}
+
+.redirected-message > * {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  height: 100%;
+  padding: 3%;
+}
+
+.redirected-message a {
+  color: #000;
+  text-decoration: none;
+  padding: 1rem 0;
+}
+
+.left-arrow {
+  margin-right: 0.5rem;
+  font-weight: bold;
+  font-size: 1.8rem;
+}
+
+@media (max-width: 1100px) {
+  .contact {
+    margin: 10% 20%;
+    background: #fff;
+  }
+
+  .contact-form {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-form-img-desktop {
+    display: none;
+  }
+
+  .contact-form-img-mobile {
+    display: block;
+  }
+
+  .form {
+    grid-template-areas:
+      'firstname firstname'
+      'lastname lastname'
+      'email email'
+      'company company'
+      'phone phone'
+      'message message'
+      'budget budget'
+      'others others'
+      'button button';
+  }
+
+  .firstname-grid {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact {
+    margin: 10% 15%;
+  }
+
+  .contact-form-fields {
+    padding: 3rem 3rem;
+  }
+}
+
+@media (max-width: 500px) {
+  body {
+    font-size: 1.4rem;
+  }
+
+  .contact {
+    margin: 10% 5%;
+  }
+
+  .contact-form-fields {
+    padding: 3rem 2rem;
+  }
+
+  .contact-form-fields h1 {
+    font-size: 2.3rem;
+    font-weight: bold;
+  }
+
+  .form > * input {
+    padding: 0.8rem;
+  }
+
+  .message-grid label::after {
+    content: 'Max. 500 char.';
+  }
+
+  .redirected-message {
+    height: 35%;
+    width: 90%;
+  }
+}
+
+@media (max-width: 320px) {
+  .contact-form-fields {
+    padding: 2rem 1.5rem;
+  }
+
+  .form > *:last-child button {
+    width: 35%;
+  }
+}

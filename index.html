@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Form</title>
+  </head>
+  <body>
+    <section class="contact">
+      <div class="contact-form">
+        <div class="contact-form-img-mobile">
+          <img src="./images/office-landscape.jpg" alt="" />
+        </div>
+        <div class="contact-form-fields">
+          <h1>Let's work together</h1>
+          <p>
+            We'd love to hear from you! Send us a message using the form
+            opposite, or email us. We'd love to hear from you! Send us a message
+            using the form opposite, or email us.
+          </p>
+
+          <form class="form">
+            <div class="firstname-grid">
+              <label for="firstname">First name</label>
+              <input class="firstname" type="text" autofocus />
+            </div>
+            <div class="lastname-grid">
+              <label for="lastname">Last name</label>
+              <input class="lastname" type="text" />
+            </div>
+            <div class="email-grid">
+              <label for="email">Email</label>
+              <input class="email" type="email" />
+            </div>
+            <div class="company-grid">
+              <label for="company">Company</label>
+              <input class="company" type="text" />
+            </div>
+            <div class="phone-grid">
+              <label for="phone">Phone</label>
+              <input class="phone" type="number" />
+            </div>
+            <div class="message-grid">
+              <label for="message">How can we help you?</label>
+              <textarea class="message"></textarea>
+            </div>
+            <div class="budget-grid">
+              <label for="budget">Expected budget</label>
+              <div>
+                <input type="radio" name="budget" value="less than 25k" />
+                <label for="lessthan25k">Less than $25K</label>
+              </div>
+              <div>
+                <input type="radio" name="budget" value="25k - 50k" />
+                <label for="25kto50k">25K - 50K</label>
+              </div>
+              <div>
+                <input type="radio" name="budget" value="50k - 100k" />
+                <label for="50kto100k">50K - 100K</label>
+              </div>
+              <div>
+                <input type="radio" name="budget" value="100k+" />
+                <label for="100kplus">100K+</label>
+              </div>
+            </div>
+            <div class="others-grid">
+              <label for="others">How did you hear about us?</label>
+              <input class="others" type="text" />
+            </div>
+            <div class="button-grid">
+              <button type="submit">Submit</button>
+            </div>
+          </form>
+        </div>
+        <div class="contact-form-img-desktop">
+          <img src="./images/office-potrait.jpg" alt="" />
+        </div>
+      </div>
+    </section>
+    <script src="app.js"></script>
+  </body>
+</html>
