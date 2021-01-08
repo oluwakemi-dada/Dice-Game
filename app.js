@@ -1,66 +1,169 @@
-const form = document.querySelector('.form');
+const player0 = document.querySelector('.player-0');
+const player1 = document.querySelector('.player-1');
+const player0Score = document.querySelector('.player-0-score');
+const player1Score = document.querySelector('.player-1-score');
+const playersForm = document.querySelector('.players-form');
+const player0Input = document.querySelector('.player-0-input');
+const player1Input = document.querySelector('.player-1-input');
+const player0Name = document.querySelector('.player-0-name');
+const player1Name = document.querySelector('.player-1-name');
+const diceImg = document.querySelector('.dice-img');
+const play = document.querySelector('.play');
+const reset = document.querySelector('.reset');
+const score = [0, 0];
+const attempts = [4, 4];
+let currentScore;
+let activePlayer;
+let playing = false;
 
-// Error Message
-const showError = () => {
-  const errorBox = `
-      <div class='error'>
-        <p>Please fill all fields</p>
-      </div>
-    `;
-  form.insertAdjacentHTML('beforebegin', errorBox);
-  clearAlert();
-};
-
-// Remove message
-const clearAlert = () => {
-  setTimeout(() => {
-    document.querySelector('.error').remove();
-  }, 3000);
-};
-
-// Form Submit
-const submitForm = (e) => {
-  e.preventDefault();
-
-  // Form inputs
-  const firstname = document.querySelector('.firstname').value;
-  const lastname = document.querySelector('.lastname').value;
-  const email = document.querySelector('.email').value;
-  const company = document.querySelector('.company').value;
-  const phone = document.querySelector('.phone').value;
-  const message = document.querySelector('.message').value;
-  const others = document.querySelector('.others').value;
-  const budget = document.querySelectorAll('input[name="budget"]');
-
-  // Get radio value
-  const budgetArr = Array.from(budget);
-  let selectedValue;
-  budgetArr.forEach((rb) => {
-    if (rb.checked) {
-      selectedValue = rb.value;
-    }
-  });
-
-  if (
-    firstname !== '' &&
-    lastname !== '' &&
-    email !== '' &&
-    company !== '' &&
-    phone !== '' &&
-    message !== '' &&
-    selectedValue !== undefined &&
-    others !== ''
-  ) {
-    window.location.href = 'form-redirect.html';
-  } else {
-    window.scroll({
-      top: 260,
-      behavior: 'smooth',
-    });
-    showError();
+// CHECK NUMBER OF ATTEMPTS
+const checkattempts = () => {
+  if (attempts[0] > 0 || attempts[1] > 0) {
+    switchPlayer();
+  } else if (attempts[0] === 0 && attempts[1] === 0) {
+    playing = false;
+    compareScores();
   }
 };
 
-if (form) {
-  form.addEventListener('submit', submitForm);
-}
+// COMPARE SCORES
+const compareScores = () => {
+  if (score[0] > score[1]) {
+    // Player 0 wins
+    player0.classList.add('winner');
+    document.querySelector('.player-0-name').style.color = '#fff';
+  } else if (score[0] < score[1]) {
+    // player 1 wins
+    player1.classList.add('winner');
+    document.querySelector('.player-1-name').style.color = '#fff';
+  } else if (score[0] === score[1]) {
+    // A tie
+    player0.classList.add('winner');
+    player1.classList.add('winner');
+    document.querySelector('.player-0-name').style.color = '#fff';
+    document.querySelector('.player-1-name').style.color = '#fff';
+  }
+};
+
+// SWITCH PLAYER
+const switchPlayer = () => {
+  player0.classList.toggle('player-active');
+  player1.classList.toggle('player-active');
+  activePlayer = activePlayer === 0 ? 1 : 0;
+};
+
+// START GAME
+const startGame = () => {
+  if (playing) {
+    // Roll dice
+    let dice = Math.trunc(Math.random() * 6) + 1;
+    // Set current score to dice num
+    currentScore = dice;
+    // Display dice
+    diceImg.src = `./img/dice-${dice}.png`;
+    diceImg.style.visibility = 'visible';
+    // Set active player' score to current score
+    score[activePlayer] += currentScore;
+    // Deduct 1from attempts
+    attempts[activePlayer] -= 1;
+    // Update current player's score
+    document.querySelector(`.player-${activePlayer}-score`).textContent =
+      score[activePlayer];
+    // Switch active player
+    checkattempts();
+  } else {
+    // Do nothing
+  }
+};
+
+// RESET GAME
+const resetGame = () => {
+  init();
+  player0.classList.add('player-active');
+  player1.classList.remove('player-active');
+  player0.classList.remove('winner');
+  player1.classList.remove('winner');
+};
+
+// GET ITEM FROM LOCAL STORAGE
+const getNamesFromLs = () => {
+  let formInfo;
+
+  if (localStorage.getItem('formInfo') === null) {
+    formInfo = [];
+  } else {
+    formInfo = JSON.parse(localStorage.getItem('formInfo'));
+  }
+  return formInfo;
+};
+
+// SET ITEM TO LOCAL STORAGE
+const setItemToLs = (name) => {
+  let formInfo = getNamesFromLs();
+
+  formInfo = name;
+  localStorage.setItem('formInfo', JSON.stringify(formInfo));
+};
+
+// POPULATE NAMES FROM LOCAL STORAGE
+const populateNames = () => {
+  let formInfo = getNamesFromLs();
+  player0Name.textContent = `${formInfo.name0}`;
+  player1Name.textContent = `${formInfo.name1}`;
+};
+
+// SUBMITFORM
+const submitForm = (e) => {
+  e.preventDefault();
+  const users = {
+    name0: player0Input.value,
+    name1: player1Input.value,
+  };
+  if (users.name0 !== '' && users.name1 !== '') {
+    player0Input.value = '';
+    player1Input.value = '';
+    setItemToLs(users);
+    populateNames();
+    playersForm.style.visibility = 'hidden';
+    playing = true;
+  }
+};
+
+// GAME INITIALIZATION
+const init = () => {
+  playing = false;
+  currentScore = 0;
+  activePlayer = 0;
+  diceImg.style.visibility = 'hidden';
+  player0Score.textContent = 0;
+  player1Score.textContent = 0;
+  score[0] = 0;
+  score[1] = 0;
+  attempts[0] = 4;
+  attempts[1] = 4;
+  player0Name.style.color = '#000';
+  player1Name.style.color = '#000';
+
+  if (localStorage.getItem('formInfo') === null) {
+    player0Name.textContent = 'Anon';
+    player1Name.textContent = 'Anon';
+  } else {
+    populateNames();
+  }
+  playersForm.style.visibility = 'visible';
+};
+
+// EVENT LISTENERS
+const loadAllEventListeners = () => {
+  // PLAYERS FORM SUBMIT
+  playersForm.addEventListener('submit', submitForm);
+
+  // PLAY BUTTON
+  play.addEventListener('click', startGame);
+
+  // RESET BUTTON
+  reset.addEventListener('click', resetGame);
+};
+
+init();
+loadAllEventListeners();
