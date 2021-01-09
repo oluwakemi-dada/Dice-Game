@@ -2,11 +2,16 @@ const player0 = document.querySelector('.player-0');
 const player1 = document.querySelector('.player-1');
 const player0Score = document.querySelector('.player-0-score');
 const player1Score = document.querySelector('.player-1-score');
+const round0 = document.querySelector('.rounds-0');
+const round1 = document.querySelector('.rounds-1');
 const playersForm = document.querySelector('.players-form');
 const player0Input = document.querySelector('.player-0-input');
 const player1Input = document.querySelector('.player-1-input');
 const player0Name = document.querySelector('.player-0-name');
 const player1Name = document.querySelector('.player-1-name');
+const winnerName = document.querySelector('.winner-name');
+const winnerMsg = document.querySelector('.winner-msg');
+const tieMsg = document.querySelector('.tie-msg');
 const diceImg = document.querySelector('.dice-img');
 const play = document.querySelector('.play');
 const reset = document.querySelector('.reset');
@@ -26,8 +31,9 @@ const checkattempts = () => {
     // Disable play button
     play.disabled = true;
     play.classList.add('start-disabled');
-    document.querySelector('.rounds-0').style.visibility = 'hidden';
-    document.querySelector('.rounds-1').style.visibility = 'hidden';
+    // Hide Round counts
+    round0.style.visibility = 'hidden';
+    round1.style.visibility = 'hidden';
   }
 };
 
@@ -36,17 +42,22 @@ const compareScores = () => {
   if (score[0] > score[1]) {
     // Player 0 wins
     player0.classList.add('winner');
-    document.querySelector('.player-0-name').style.color = '#fff';
+    player0Name.style.color = '#fff';
+    winnerMsg.style.visibility = 'visible';
+    winnerName.textContent = `${player0Name.textContent}`;
   } else if (score[0] < score[1]) {
     // player 1 wins
     player1.classList.add('winner');
-    document.querySelector('.player-1-name').style.color = '#fff';
+    player1Name.style.color = '#fff';
+    winnerMsg.style.visibility = 'visible';
+    winnerName.textContent = `${player1Name.textContent}`;
   } else if (score[0] === score[1]) {
     // A tie
     player0.classList.add('winner');
     player1.classList.add('winner');
-    document.querySelector('.player-0-name').style.color = '#fff';
-    document.querySelector('.player-1-name').style.color = '#fff';
+    player0Name.style.color = '#fff';
+    player1Name.style.color = '#fff';
+    tieMsg.style.visibility = 'visible';
   }
 };
 
@@ -152,8 +163,8 @@ const submitForm = (e) => {
     playersForm.style.visibility = 'hidden';
     playing = true;
     // Show round count
-    document.querySelector('.rounds-0').style.visibility = 'visible';
-    document.querySelector('.rounds-1').style.visibility = 'visible';
+    round0.style.visibility = 'visible';
+    round1.style.visibility = 'visible';
     document.querySelector('.round-count-0').textContent = attempts[0];
     document.querySelector('.round-count-1').textContent = attempts[1];
   } else {
@@ -186,8 +197,10 @@ const init = () => {
   playersForm.style.visibility = 'visible';
   play.disabled = false;
   play.classList.remove('start-disabled');
-  document.querySelector('.rounds-0').style.visibility = 'hidden';
-  document.querySelector('.rounds-1').style.visibility = 'hidden';
+  round0.style.visibility = 'hidden';
+  round1.style.visibility = 'hidden';
+  winnerMsg.style.visibility = 'hidden';
+  tieMsg.style.visibility = 'hidden';
 };
 
 // EVENT LISTENERS

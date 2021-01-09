@@ -182,6 +182,23 @@ body {
   color: #000;
 }
 
+.winner-msg, .tie-msg {
+  background: #fff;
+  color: #000;
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 1.2rem 2rem;
+  border-radius: .5rem;
+  box-shadow: 0 0 .5rem #fff;
+  font-size: 2rem;
+}
+
+.winner-msg span {
+  font-weight: bold;
+}
+
 @media (max-width: 600px) {
   body {
     padding: 5vh 5%;
