@@ -23,6 +23,11 @@ const checkattempts = () => {
   } else if (attempts[0] === 0 && attempts[1] === 0) {
     playing = false;
     compareScores();
+    // Disable play button
+    play.disabled = true;
+    play.classList.add('start-disabled');
+    document.querySelector('.rounds-0').style.visibility = 'hidden';
+    document.querySelector('.rounds-1').style.visibility = 'hidden';
   }
 };
 
@@ -52,6 +57,23 @@ const switchPlayer = () => {
   activePlayer = activePlayer === 0 ? 1 : 0;
 };
 
+// REMOVE ERROR MESSAGE
+const removeErrorMessage = () => {
+  setTimeout(() => {
+    document.querySelector('.pop-up-msg').remove();
+  }, 3000);
+};
+
+// SHOW ERROR MESSAGE
+const showErrorMessage = (message) => {
+  const errorMessage = `
+  <div class="pop-up-msg">${message}</div>
+  `;
+  playersForm.insertAdjacentHTML('beforebegin', errorMessage);
+
+  removeErrorMessage();
+};
+
 // START GAME
 const startGame = () => {
   if (playing) {
@@ -64,15 +86,18 @@ const startGame = () => {
     diceImg.style.visibility = 'visible';
     // Set active player' score to current score
     score[activePlayer] += currentScore;
-    // Deduct 1from attempts
+    // Deduct 1from attempts and update UI
     attempts[activePlayer] -= 1;
+    document.querySelector(`.round-count-${activePlayer}`).textContent =
+      attempts[`${activePlayer}`];
     // Update current player's score
     document.querySelector(`.player-${activePlayer}-score`).textContent =
       score[activePlayer];
     // Switch active player
     checkattempts();
   } else {
-    // Do nothing
+    // show Error
+    showErrorMessage('Please enter names', 'bg-black');
   }
 };
 
@@ -126,6 +151,14 @@ const submitForm = (e) => {
     populateNames();
     playersForm.style.visibility = 'hidden';
     playing = true;
+    // Show round count
+    document.querySelector('.rounds-0').style.visibility = 'visible';
+    document.querySelector('.rounds-1').style.visibility = 'visible';
+    document.querySelector('.round-count-0').textContent = attempts[0];
+    document.querySelector('.round-count-1').textContent = attempts[1];
+  } else {
+    // show Error
+    showErrorMessage('Please enter names', 'bg-black');
   }
 };
 
@@ -151,6 +184,10 @@ const init = () => {
     populateNames();
   }
   playersForm.style.visibility = 'visible';
+  play.disabled = false;
+  play.classList.remove('start-disabled');
+  document.querySelector('.rounds-0').style.visibility = 'hidden';
+  document.querySelector('.rounds-1').style.visibility = 'hidden';
 };
 
 // EVENT LISTENERS

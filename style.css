@@ -63,6 +63,19 @@ body {
   border-radius: 50%;
 }
 
+.rounds-0, .rounds-1 {
+  background: #fff;
+  padding: .5rem 2rem;
+  border-radius: 2rem;
+  position: absolute;
+  top: 5%;
+}
+
+.round-count-0, .round-count-1 {
+  font-weight: bold;
+  font-size: 2rem;
+}
+
 .player-0-name,
 .player-1-name {
   margin: 1.5rem 0 3rem 0;
@@ -109,6 +122,18 @@ body {
   color: #fff;
 }
 
+.pop-up-msg {
+  position: absolute;
+  top: 3%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #000000;
+  color: #fff;
+  padding: 0.3rem 0.7rem;
+  width: 16rem;
+  text-align: center;
+}
+
 .dice {
   position: absolute;
   top: 40%;
@@ -139,6 +164,22 @@ body {
   color: #fff;
   outline: none;
   border: 1px solid #000;
+}
+
+.start-disabled {
+  margin: 1rem 2rem;
+  padding: 0.5rem;
+  width: 7rem;
+  outline: none;
+  background: #b9b5b5;
+  color: #fff;
+  outline: none;
+  border: 1px solid #000;
+}
+
+.start-disabled:hover {
+  background: #fff;
+  color: #000;
 }
 
 @media (max-width: 600px) {
