@@ -148,6 +148,11 @@ const populateNames = () => {
   player1Name.textContent = `${formInfo.name1}`;
 };
 
+// CLEAR LOCAL STORAGE
+const removeItemFromLs = () => {
+  localStorage.clear();
+};
+
 // SUBMITFORM
 const submitForm = (e) => {
   e.preventDefault();
@@ -187,13 +192,11 @@ const init = () => {
   attempts[1] = 4;
   player0Name.style.color = '#000';
   player1Name.style.color = '#000';
+  // Clear local storage
+  removeItemFromLs();
 
-  if (localStorage.getItem('formInfo') === null) {
-    player0Name.textContent = 'Anon';
-    player1Name.textContent = 'Anon';
-  } else {
-    populateNames();
-  }
+  player0Name.textContent = 'Anon';
+  player1Name.textContent = 'Anon';
   playersForm.style.visibility = 'visible';
   play.disabled = false;
   play.classList.remove('start-disabled');
