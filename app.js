@@ -114,6 +114,8 @@ const startGame = () => {
 
 // RESET GAME
 const resetGame = () => {
+  // Clear local storage
+  removeItemFromLs();
   init();
   player0.classList.add('player-active');
   player1.classList.remove('player-active');
@@ -192,11 +194,15 @@ const init = () => {
   attempts[1] = 4;
   player0Name.style.color = '#000';
   player1Name.style.color = '#000';
-  // Clear local storage
-  removeItemFromLs();
 
-  player0Name.textContent = 'Anon';
-  player1Name.textContent = 'Anon';
+  // Populate names from Local storage
+  if (localStorage.getItem('formInfo') !== null) {
+    populateNames();
+  } else {
+    player0Name.textContent = 'Anon';
+    player1Name.textContent = 'Anon';
+  }
+
   playersForm.style.visibility = 'visible';
   play.disabled = false;
   play.classList.remove('start-disabled');
